@@ -1,21 +1,12 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
-import { Step1 } from './Step1';
-import { Step2 } from './Step2';
-import { Result } from './Result';
+import EMEA_FORM from './EMEA_FORM';
 
 function App() {
   return (
-    <>
-      <Router>
-        <Switch>
-          <Route exact path="/" component={Step1} />
-          <Route exact path="/step2" component={Step2} />
-          <Route exact path="/result" component={Result} />
-        </Switch>
-      </Router>
-    </>
+    <div className="App">
+      <EMEA_FORM />
+    </div>
   );
 }
 

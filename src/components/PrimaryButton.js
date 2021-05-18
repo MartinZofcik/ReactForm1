@@ -5,7 +5,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    margin: theme.spacing(3, 0, 2),
+    margin: theme.spacing(2, 0, 0),
   },
 }));
 
@@ -17,7 +17,7 @@ export const PrimaryButton = ({ children, ...props }) => {
       className={styles.root}
       fullWidth
       variant="contained"
-      color="primary"
+      color={props.color}
       {...props}
     >
       {children}
