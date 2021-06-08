@@ -10,18 +10,21 @@ export const Result = ({ title, prevStep, handleChange, values }) => {
   const goBack = () => {
     prevStep();
   };
+  const zofco = 'Martin';
 
   const onSubmit = () => {
-    Swal.fire(
-      'Copied to clipboard (in future)',
-      'Please do not alter the output in SFDC',
-      'success'
-    );
+    // Swal.fire(
+    //   'Copied to clipboard (in future)',
+    //   'Please do not alter the output in SFDC',
+    //   'success'
+    // );
+    navigator.clipboard.writeText(final);
   };
+  const final = `Issue : ${zofco} \n Diagnostic: ${values.diagnosticStatus}`;
 
   return (
     <MainContainer>
-      <Typography component="h2" variant="h5">
+      <Typography component="h2" variant="h4">
         {title}
       </Typography>
       <PreviewList values={values} />
