@@ -20,16 +20,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const names = [
-  'blabla1',
-  'blabla2',
-  'blabla3',
-  'blabla4',
-  'blabla5',
-  'blabla6',
-];
-
-export default function MultipleSelect() {
+export default function MultipleSelect({ options }) {
   const classes = useStyles();
   const [personName, setPersonName] = React.useState([]);
 
@@ -60,7 +51,7 @@ export default function MultipleSelect() {
             </div>
           )}
         >
-          {names.map((name) => (
+          {options.map((name) => (
             <MenuItem key={name} value={name}>
               {name}
             </MenuItem>

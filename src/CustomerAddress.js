@@ -1,8 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Input } from './components/Input';
 import { MainContainer } from './components/MainContainer';
 import { makeStyles } from '@material-ui/core/styles';
-import { FormControl, InputLabel, MenuItem, Select } from '@material-ui/core';
+import {
+  Checkbox,
+  FormControl,
+  FormControlLabel,
+  InputLabel,
+  MenuItem,
+  Select,
+} from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
 
 import { useForm } from 'react-hook-form';
@@ -10,6 +17,7 @@ import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers';
 import { Form } from './components/Form';
 import { PrimaryButton } from './components/PrimaryButton';
+import { Header } from './components/Header';
 
 const schema = yup.object().shape({
   // name: yup
@@ -32,7 +40,28 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const countries = ['UK', 'Spain', 'France'];
+const countries = [
+  'Germany',
+  'Switzerland',
+  'Austria',
+  'UK',
+  'Ireland',
+  'South Africa',
+  'France',
+  'Belgium',
+  'Netherlands',
+  'Luxemburg',
+  'Greece',
+  'Italy',
+  'Spain',
+  'Denmark',
+  'Sweden',
+  'Norway',
+  'Finland',
+  'Slovakia',
+  'Czech Republic',
+  'Poland',
+];
 
 export const CustomerAddress = ({
   title,
@@ -47,7 +76,11 @@ export const CustomerAddress = ({
   });
   const styles = useStyles();
 
-  //const hasPhone = watch('hasPhone');
+  const [billingCheck, setBillingCheck] = useState(false);
+
+  const handleBillingCheck = () => {
+    setBillingCheck(!billingCheck);
+  };
 
   const goBack = () => {
     prevStep();
@@ -59,9 +92,8 @@ export const CustomerAddress = ({
 
   return (
     <MainContainer>
-      <Typography component="h2" variant="h4">
-        {title}
-      </Typography>
+      <Header title={title} />
+
       <Form onSubmit={handleSubmit(onSubmit)}>
         <Input
           //* *********************************************************************SH LINE1
@@ -145,30 +177,121 @@ export const CustomerAddress = ({
             error={!!errors.shippingCountry}
           >
             {countries.map((country) => (
-              <MenuItem value={country}>{country}</MenuItem>
+              <MenuItem value={country} key={country}>
+                {country}
+              </MenuItem>
             ))}
-            {/* <MenuItem value={'Germany'}>Germany</MenuItem>
-            <MenuItem value={'Switzerland'}>Switzerland</MenuItem>
-            <MenuItem value={'Austria'}>Austria</MenuItem>
-            <MenuItem value={'UK'}>UK</MenuItem>
-            <MenuItem value={'Ireland'}>Ireland</MenuItem>
-            <MenuItem value={'South Africa'}>South Africa</MenuItem>
-            <MenuItem value={'France'}>France</MenuItem>
-            <MenuItem value={'Belgium'}>Belgium</MenuItem>
-            <MenuItem value={'Netherlands'}>Netherlands</MenuItem>
-            <MenuItem value={'Luxemburg'}>Luxemburg</MenuItem>
-            <MenuItem value={'Greece'}>Greece</MenuItem>
-            <MenuItem value={'Italy'}>Italy</MenuItem>
-            <MenuItem value={'Spain'}>Spain</MenuItem>
-            <MenuItem value={'Denmark'}>Denmark</MenuItem>
-            <MenuItem value={'Sweden'}>Sweden</MenuItem>
-            <MenuItem value={'Norway'}>Norway</MenuItem>
-            <MenuItem value={'Finland'}>Finland</MenuItem>
-            <MenuItem value={'Slovakia'}>Slovakia</MenuItem>
-            <MenuItem value={'Czech Republic'}>Czech Republic</MenuItem>
-            <MenuItem value={'Poland'}>Poland</MenuItem> */}
           </Select>
         </FormControl>
+
+        <FormControlLabel
+          style={{ marginTop: '15px', marginBottom: '15px' }}
+          control={
+            <Checkbox
+              checked={billingCheck}
+              onChange={handleBillingCheck}
+              name="BillingAddress"
+              color="primary"
+            />
+          }
+          label="Billing Address is different from Shipping"
+        />
+
+        {billingCheck && (
+          <div>
+            <Typography component="h3" variant="h4">
+              Billing Address
+            </Typography>
+            <Input
+              //* *********************************************************************SH LINE1
+              className={styles.root}
+              ref={register}
+              name="billingLine1"
+              type="text"
+              label="Line 1"
+              onChange={handleChange('billingLine1')}
+              defaultValue={values.billingLine1}
+              error={!!errors.billingLine1}
+              helperText={errors?.billingLine1?.message}
+            />
+
+            <Input
+              //* *********************************************************************SH LINE2
+              className={styles.root}
+              ref={register}
+              name="billingLine2"
+              type="text"
+              label="Line 2"
+              onChange={handleChange('billingLine2')}
+              defaultValue={values.billingLine2}
+              error={!!errors.billingLine2}
+              helperText={errors?.billingLine2?.message}
+            />
+
+            <Input
+              //* *********************************************************************SH CITY
+              className={styles.root}
+              ref={register}
+              name="billingCity"
+              type="text"
+              label="City"
+              onChange={handleChange('billingCity')}
+              defaultValue={values.billingCity}
+              error={!!errors.billingCity}
+              helperText={errors?.billingCity?.message}
+            />
+
+            <Input
+              //* *********************************************************************SH STATE
+              className={styles.root}
+              ref={register}
+              name="billingState"
+              type="text"
+              label="State"
+              onChange={handleChange('billingState')}
+              defaultValue={values.billingState}
+              error={!!errors.billingState}
+              helperText={errors?.billingState?.message}
+            />
+
+            <Input
+              //* *********************************************************************SH ZIP
+              className={styles.root}
+              ref={register}
+              name="billingZIP"
+              type="text"
+              label="Zip/Postal (not APO/FPO)"
+              onChange={handleChange('billingZIP')}
+              defaultValue={values.billingZIP}
+              error={!!errors.billingZIP}
+              helperText={errors?.billingZIP?.message}
+            />
+
+            <FormControl
+              //* *********************************************************************SH COUNTRY
+              //required
+              // variant="outlined"
+              className={styles.root}
+            >
+              <InputLabel>Country</InputLabel>
+              <Select
+                ref={register}
+                name="billingCountry"
+                value={values.billingCountry}
+                onChange={handleChange('billingCountry')}
+                label="Country"
+                defaultValue=""
+                error={!!errors.billingCountry}
+              >
+                {countries.map((country) => (
+                  <MenuItem value={country} key={country}>
+                    {country}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          </div>
+        )}
 
         <PrimaryButton className={styles.button} color="primary" type="submit">
           Next

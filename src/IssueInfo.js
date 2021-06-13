@@ -11,7 +11,7 @@ import { Form } from './components/Form';
 import { Input } from './components/Input';
 import { PrimaryButton } from './components/PrimaryButton';
 import { FormControl, InputLabel, MenuItem, Select } from '@material-ui/core';
-import Header from './components/Header';
+import { Header } from './components/Header';
 import MultipleSelect from './components/MultiSelect';
 
 const schema = yup.object().shape({
@@ -19,14 +19,12 @@ const schema = yup.object().shape({
   //   .string()
   //   .matches(/^([^0-9]*)$/, 'Issue should not contain numbers')
   //   .required('Issue is a required field'),
-  repairUpgrade: yup.boolean(),
-
-  issue: yup.string().when('repairUpgrade', {
-    is: (repairUpgrade) => true,
-    then: yup.string().required('Issue is a required field'),
-    otherwise: yup.string(),
-  }),
-
+  // repairUpgrade: yup.boolean(),
+  // issue: yup.string().when('repairUpgrade', {
+  //   is: (repairUpgrade) => true,
+  //   then: yup.string().required('Issue is a required field'),
+  //   otherwise: yup.string(),
+  // }),
   // diagnosticStatus: yup
   //   .string()
   //   .matches(/^([^0-9]*)$/, 'Diagnostic status should not contain numbers')
@@ -66,17 +64,29 @@ export const IssueInfo = ({ title, nextStep, handleChange, values }) => {
   };
 
   const [repairUpgrade, setrepairUpgrade] = useState(true);
+  const [dispatchState, setDispatchState] = useState('');
 
-  const handleRepair = (event) => {
-    setrepairUpgrade(event.target.value);
+  const handleRepair = () => {
+    setrepairUpgrade(!repairUpgrade);
   };
+
+  // const handleDispatch = (event) => {
+  //   handleChange('dispatchType');
+  //   setDispatchState(event.target.value);
+  // };
+
+  const commodityOptions = [
+    'Commodity 1',
+    'Commodity 2',
+    'Commodity 3',
+    'Commodity 4',
+    'Commodity 5',
+    'Commodity 6',
+  ];
 
   return (
     <MainContainer>
-      {/* <Header /> */}
-      <Typography component="h2" variant="h4">
-        {title}
-      </Typography>
+      <Header title={title} />
 
       <Form onSubmit={handleSubmit(onSubmit)}>
         <FormControl
@@ -89,7 +99,7 @@ export const IssueInfo = ({ title, nextStep, handleChange, values }) => {
           <Select
             ref={register}
             name="repairUpgrade"
-            onChange={handleChange('repairUpgrade')}
+            onChange={handleRepair}
             label="Request Type"
             defaultValue={true}
           >
@@ -98,7 +108,7 @@ export const IssueInfo = ({ title, nextStep, handleChange, values }) => {
           </Select>
         </FormControl>
 
-        {values.repairUpgrade && (
+        {repairUpgrade && (
           <div className="repair-upgrade">
             <Input
               //* *********************************************************************ISSUE
@@ -171,9 +181,9 @@ export const IssueInfo = ({ title, nextStep, handleChange, values }) => {
             </FormControl>
 
             <MultipleSelect
-            //* *********************************************************************COMMODITY REQUESTED
-            // onChange={handleChange}
-            // values={values}
+              //* *********************************************************************COMMODITY REQUESTED
+              onChange={handleChange}
+              options={commodityOptions}
             />
           </div>
         )}

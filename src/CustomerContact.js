@@ -6,6 +6,7 @@ import { yupResolver } from '@hookform/resolvers';
 import Typography from '@material-ui/core/Typography';
 import { FormControl, InputLabel, MenuItem, Select } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import { Header } from './components/Header';
 
 import { MainContainer } from './components/MainContainer';
 import { Input } from './components/Input';
@@ -71,9 +72,7 @@ export const CustomerContact = ({
 
   return (
     <MainContainer>
-      <Typography component="h2" variant="h4">
-        {title}
-      </Typography>
+      <Header title={title} />
       <Form onSubmit={handleSubmit(onSubmit)}>
         <Input
           //* *********************************************************************CUSTOMER NAME

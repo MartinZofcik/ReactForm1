@@ -1,17 +1,20 @@
-import PropTypes from 'prop-types';
+import { Typography } from '@material-ui/core';
+import Button from './Button';
 
-export const Header = ({}) => {
+export const Header = ({ title }) => {
+  const showHelp = () => {
+    window.open(
+      'http://ausdwoopweb01/Intake_EMEA/EMEA_OOP_Handshake_Form.html',
+      '_blank'
+    );
+  };
+
   return (
     <header className="header">
-      <h1>asasas</h1>
+      <Typography component="h3" variant="h4">
+        {title}
+      </Typography>
+      <Button color="black" text="Help" onClick={showHelp} />
     </header>
   );
-};
-
-Header.defaultProps = {
-  title: 'Default Title',
-};
-
-Header.propTypes = {
-  title: PropTypes.string,
 };

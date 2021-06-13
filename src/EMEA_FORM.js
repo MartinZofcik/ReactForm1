@@ -31,8 +31,8 @@ export class EMEA_FORM extends Component {
     billingState: '',
     billingZIP: '',
     billingCountry: '',
-    repairUpgrade: true,
-    billingCheckbox: false,
+    // repairUpgrade: true,
+    // billingCheckbox: false,
   };
 
   nextStep = () => {
@@ -50,7 +50,6 @@ export class EMEA_FORM extends Component {
     });
   };
 
-  //Handle fields change
   handleChange = (input) => (e) => {
     this.setState({ [input]: e.target.value });
   };
@@ -82,8 +81,8 @@ export class EMEA_FORM extends Component {
       billingState,
       billingZIP,
       billingCountry,
-      repairUpgrade,
-      billingCheckbox,
+      // repairUpgrade,
+      // billingCheckbox,
     } = this.state;
 
     const values = {
@@ -112,8 +111,8 @@ export class EMEA_FORM extends Component {
       billingState,
       billingZIP,
       billingCountry,
-      repairUpgrade,
-      billingCheckbox,
+      // repairUpgrade,
+      // billingCheckbox,
     };
 
     switch (step) {
@@ -139,7 +138,7 @@ export class EMEA_FORM extends Component {
       case 3:
         return (
           <CustomerAddress
-            title="Customer Address"
+            title="Shipping Address"
             nextStep={this.nextStep}
             prevStep={this.prevStep}
             handleChange={this.handleChange}
